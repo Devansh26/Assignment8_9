@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>User Registration</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required>
+        </div>
+        <div>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required>
+        </div>
+        <div>
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+        </div>
+        <div>
+            <label>Gender:</label>
+            <input type="radio" name="gender" value="male" required> Male
+            <input type="radio" name="gender" value="female" required> Female
+        </div>
+        <div>
+            <label for="password1">Password:</label>
+            <input type="password" id="password1" required>
+        </div>
+        <div>
+            <label for="password2">Confirm Password:</label>
+            <input type="password" id="password2" required>
+        </div>
+        <div>
+            <input type="submit" value="Register">
+        </div>
+    </form>
+
+    <div id="errorMessages" class="error"></div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            validateForm();
+        });
+
+        function validateForm() {
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const dob = document.getElementById("dob").value.trim();
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const password1 = document.getElementById("password1").value.trim();
+            const password2 = document.getElementById("password2").value.trim();
+
+            let errors = [];
+
+            if (firstName === "") {
+                errors.push("First Name is required.");
+            }
+
+            if (lastName === "") {
+                errors.push("Last Name is required.");
+            }
+
+            if (dob === "") {
+                errors.push("Date of Birth is required.");
+            }
+
+            if (!gender) {
+                errors.push("Gender is required.");
+            }
+
+            if (password1 === "") {
+                errors.push("Password is required.");
+            }
+
+            if (password1 !== password2) {
+                errors.push("Passwords do not match.");
+            }
+
+            const errorMessages = document.getElementById("errorMessages");
+            if (errors.length > 0) {
+                errorMessages.innerText = errors.join(" ");
+            } else {
+                errorMessages.innerText = "";
+                // If the form is valid, you can proceed with registration or other actions here.
+                alert("Registration successful!");
+                document.getElementById("registrationForm").reset();
+            }
+        }
+    </script>
+</body>
+</html>
